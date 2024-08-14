@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@importok/javascript": "^0.10.2",
-    "@importok/vue": "^0.10.2",
+    "@importok/javascript": "^0.13",
+    "@importok/vue": "^0.13",
     "vue": "^3"
   },
   "devDependencies": {
