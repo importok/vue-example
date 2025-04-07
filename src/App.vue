@@ -12,6 +12,8 @@ export default {
          * Check https://importok.io/docs/webhooks.html for more details
          */
         async saveRecord(record, meta) {
+            console.log('Record:', record);
+            console.log('Meta:', meta);
             return await fetch('https://httpstat.us/200');
         }
     },
@@ -40,16 +42,6 @@ export default {
                     label: 'Email',
                     validators: 'email|required',
                     transformers: 'lowercase|trim'
-                },
-                phone: {
-                    label: 'Phone',
-                    validators: 'phone',
-                    transformers: 'replace:-|trim'
-                },
-                country: {
-                    label: 'Country',
-                    validators: 'in:CY,GR,UK',
-                    transformers: 'uppercase|trim',
                 },
             }
         };
