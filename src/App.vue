@@ -12,9 +12,13 @@ export default {
          * Check https://importok.io/docs/webhooks.html for more details
          */
         async saveRecord(record, meta) {
-            console.log('Record:', record);
-            console.log('Meta:', meta);
-            return await fetch('https://httpstat.us/200');
+            // Simulate a network request for 100ms
+            await new Promise(resolve => setTimeout(resolve, 200));
+
+            if (record.rowIndex % 5 === 0) {
+              // Simulate a failure for every 5th record
+              record.markAsRejected();
+            }
         }
     },
 
@@ -31,28 +35,36 @@ export default {
                 },
                 last_name: {
                     label: 'Last Name',
-                    validators: 'required|length:5',
+                    validators: 'required',
                     transformers: 'capitalize|trim'
-                },
-                company_name: {
-                    label: 'Company Name',
-                    transformers: 'trim'
                 },
                 email: {
                     label: 'Email',
                     validators: 'email|required',
                     transformers: 'lowercase|trim'
                 },
-            }
+                phone: {
+                    label: 'Phone',
+                    transformers: 'trim'
+                },
+                country: {
+                    label: 'Country',
+                    transformers: 'trim|as:countries',
+                    validators: 'in:countries',
+                    provider: 'countries'
+                },
+            },
         };
     }
 };
 </script>
 <template>
-    <ImportokWizard
-        title="ImportOK Example for Vue"
-        :fields="fields"
-        sample-file="/sample.csv"
-        @record-ready="saveRecord"
-    />
+    <div style="margin: 2rem;">
+        <ImportokWizard
+            title="ImportOK Example for Vue"
+            :fields="fields"
+            sample-file="/sample.csv"
+            @record-ready="saveRecord"
+        />
+    </div>
 </template>
